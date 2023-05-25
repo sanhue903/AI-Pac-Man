@@ -101,7 +101,7 @@ class ValueIterationAgent(ValueEstimationAgent):
           value function stored in self.values.
         """
         "*** YOUR CODE HERE ***"
-        ## HECHO POR ELLA
+       
         qValue = 0
     for siguientEstado, prob in self.mdp.getTransitionStatesAndProbs(estado, accion):
         recompensa = self.mdp.getReward(estado, accion, siguientEstado)
