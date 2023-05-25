@@ -57,35 +57,23 @@ class ValueIterationAgent(ValueEstimationAgent):
         self.discount = discount
         self.iterations = iterations
         self.values = util.Counter() # A Counter is a dict with default 0
-        self.runValueIteration()
-
-    def runValueIteration(self):
-        # Write value iteration code here
-        "*** YOUR CODE HERE ***"
-        ## HECHO POR ELLA
-        for iteration in range(self.iterations):
-            temp = util.Counter()
-            for state in self.mdp.getStates():
-                #the value for terminal state is 0
-                if self.mdp.isTerminal(state):
-                    temp[state] = 0
+        """"
+            Esta parte inicializa los valores para  
+        """
+        for it in range(self.iterations):
+            valuestemporal=self.values.copy()
+            for estado in mdp.getStates():
+                    
+                if mdp.isTerminal(estado):
+                    self.values[estado]=0
                 else:
-                    #get actions and rewards
-                    maximumValue = -99999
-                    #actions for the state
-                    actions = self.mdp.getPossibleActions(state)
-                    for action in actions:
-                        #find state and probability for the transition associated
-                        #with actions
-                        t = self.mdp.getTransitionStatesAndProbs(state, action)
-                        value = 0
-                        for stateAndProb in t:
-                            value += stateAndProb[1] * (self.mdp.getReward(state, action, stateAndProb[1]) \
-                            + self.discount * self.values[stateAndProb[0]])
-                        maximumValue = max(value, maximumValue)
-                    if maximumValue != -99999:
-                        temp[state] = maximumValue
-            self.values = temp
+                    actionValues = []
+                    for action in self.mdp.getPossibleActions(estado):
+                        actionValue = self.getQValue(estado, action)
+                        actionValues.append(actionValue)
+                    if len(actionValues)>0:
+                        self.values[estado] = max(actionValues)
+                    
 
 
     def getValue(self, state):
