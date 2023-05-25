@@ -124,7 +124,7 @@ class ValueIterationAgent(ValueEstimationAgent):
 
         #check for terminal
         if self.mdp.isTerminal(state):
-            return None
+            return 
 
         actions = self.mdp.getPossibleActions(state)
         #find all actions and the corresponding value and then return action
