@@ -112,22 +112,16 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         "*** YOUR CODE HERE ***"
-        ## HECHO POR ELLA
-
-        #check for terminal
-        if self.mdp.isTerminal(state):
-            return 
-
-        actions = self.mdp.getPossibleActions(state)
-        #find all actions and the corresponding value and then return action
-        #corresponding to the maximum value
-        allActions = {}
-        for action in actions:
-            allActions[action] = self.computeQValueFromValues(state, action)
-
-        return max(allActions, key=allActions.get)
-
-        util.raiseNotDefined()
+        if self.mdp.isTerminal():
+            return None
+        
+        accionesPosibles = self.mdp.getPossibleActions(state)
+        
+        for accion in accionesPosibles:
+            accion = accion.computeQValueFromValues(state, accion)
+        
+        return max(accionesPosibles)
+   
 
     def getPolicy(self, state):
         return self.computeActionFromValues(state)
