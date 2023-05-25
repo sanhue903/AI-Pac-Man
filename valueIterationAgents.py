@@ -83,7 +83,7 @@ class ValueIterationAgent(ValueEstimationAgent):
         return self.values[state]
 
     #Calcula el valor-Q para un (estado-accion), tomando en cuenta las recompensas futuras esperadas.
-    def computeQValueFromValues(self, state, action):
+    def computeQValueFromValues(self, estado, accion):
         """
           Compute the Q-value of action in state from the
           value function stored in self.values.
