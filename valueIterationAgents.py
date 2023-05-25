@@ -84,6 +84,7 @@ class ValueIterationAgent(ValueEstimationAgent):
 
     #Calcula el valor-Q para un (estado-accion), tomando en cuenta las recompensas futuras esperadas.
     def computeQValueFromValues(self, estado, accion):
+    def computeQValueFromValues(self, estado, accion):
         """
           Compute the Q-value of action in state from the
           value function stored in self.values.
@@ -92,15 +93,14 @@ class ValueIterationAgent(ValueEstimationAgent):
        
         qValue = 0
         #Se itera sobre todos los posibles estados a los que podemos ir y la probabilidad de llegar, dada una accion en el estado actual
-        for siguientEstado, prob in self.mdp.getTransitionStatesAndProbs(estado, accion): 
-            #Se obtiene la recompensa correspondiente a la accion tomada en un estado especifico, terminando en un nuevo estado.
-            recompensa = self.mdp.getReward(estado, accion, siguientEstado)
-            #Actualiza el valor-Q
-            qValue += prob * (recompensa + self.discount * self.values[siguientEstado])
-        
-        return qValue
+    for siguientEstado, prob in self.mdp.getTransitionStatesAndProbs(estado, accion): 
+        #Se obtiene la recompensa correspondiente a la accion tomada en un estado especifico, terminando en un nuevo estado.
+        recompensa = self.mdp.getReward(estado, accion, siguientEstado)
+        #Actualiza el valor-Q
+        qValue += prob * (recompensa + self.discount * self.values[siguientEstado])
+    return qValue
 
-       
+        util.raiseNotDefined()
 
     def computeActionFromValues(self, state):
         """
