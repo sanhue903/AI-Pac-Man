@@ -99,7 +99,7 @@ class ValueIterationAgent(ValueEstimationAgent):
         qValue += prob * (recompensa + self.discount * self.values[siguientEstado])
     return qValue
 
-        util.raiseNotDefined()
+        
 
     def computeActionFromValues(self, state):
         """
