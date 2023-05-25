@@ -95,7 +95,7 @@ class ValueIterationAgent(ValueEstimationAgent):
     for siguientEstado, prob in self.mdp.getTransitionStatesAndProbs(estado, accion): 
         #Se obtiene la recompensa correspondiente a la accion tomada en un estado especifico, terminando en un nuevo estado.
         recompensa = self.mdp.getReward(estado, accion, siguientEstado)
-        #Actualiza el valor-Q
+        #Actualiza el valor-Q, sumando el producto de la probabilidad de transición y la suma de la recompensa inmediata y el valor descontado del estado siguiente.
         qValue += prob * (recompensa + self.discount * self.values[siguientEstado])
     return qValue
 
