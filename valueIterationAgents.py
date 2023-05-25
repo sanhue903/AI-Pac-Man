@@ -103,10 +103,10 @@ class ValueIterationAgent(ValueEstimationAgent):
         "*** YOUR CODE HERE ***"
         ## HECHO POR ELLA
         qValue = 0
-        for stateAndProb in self.mdp.getTransitionStatesAndProbs(state, action):
-            qValue += stateAndProb[1] * (self.mdp.getReward(state, action, stateAndProb[1]) \
-            + self.discount * self.values[stateAndProb[0]])
-        return qValue
+    for siguientEstado, prob in self.mdp.getTransitionStatesAndProbs(estado, accion):
+        recompensa = self.mdp.getReward(estado, accion, siguientEstado)
+        qValue += prob * (recompensa + self.discount * self.values[siguientEstado])
+    return qValue
 
         util.raiseNotDefined()
 
