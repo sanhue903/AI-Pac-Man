@@ -21,6 +21,7 @@ import json
 import traceback
 from collections import defaultdict
 import util
+import tkinter
 
 
 class Grades:
