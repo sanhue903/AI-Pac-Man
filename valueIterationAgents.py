@@ -63,17 +63,17 @@ class ValueIterationAgent(ValueEstimationAgent):
         for it in range(self.iterations):
             valuestemporal=util.Counter()
             for estado in mdp.getStates():
-                    
-                if mdp.isTerminal(estado):
-                    self.values[estado]=0
-                else:
-                    actionValues = []
-                    for action in self.mdp.getPossibleActions(estado):
-                        actionValue = self.getQValue(estado, action)
-                        actionValues.append(actionValue)
-                    if len(actionValues)>0:
-                        self.values[estado] = max(actionValues)
-                    
+                maximoValue=-99999999
+
+                actionValues = []
+                for action in self.mdp.getPossibleActions(estado):
+                    actionValue = self.getQValue(estado, action)
+                    maximovalue=max(maximoValue,actionValue)
+                if maximoValue!=-99999999 :
+                    valuestemporal[estado] = maximoValue
+           for estado in self.mdp.getStates():
+                self.values[estado] = valuestemporal[estado]
+
 
 
     def getValue(self, state):
