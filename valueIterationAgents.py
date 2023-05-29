@@ -71,7 +71,7 @@ class ValueIterationAgent(ValueEstimationAgent):
                     maximovalue=max(maximoValue,actionValue)
                 if maximoValue!=-99999999 :
                     valuestemporal[estado] = maximoValue
-           for estado in self.mdp.getStates():
+            for estado in self.mdp.getStates():
                 self.values[estado] = valuestemporal[estado]
 
 
@@ -112,7 +112,7 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         "*** YOUR CODE HERE ***"
-        if self.mdp.isTerminal():
+        if self.mdp.isTerminal(state):
             return None
         
         accionesPosibles = self.mdp.getPossibleActions(state)
