@@ -58,10 +58,10 @@ class ValueIterationAgent(ValueEstimationAgent):
         self.iterations = iterations
         self.values = util.Counter() # A Counter is a dict with default 0
         """"
-            Esta parte inicializa los valores para  
+            Esta parte inicializa los valores
         """
         for it in range(self.iterations):
-            valuestemporal=self.values.copy()
+            valuestemporal=util.Counter()
             for estado in mdp.getStates():
                     
                 if mdp.isTerminal(estado):
