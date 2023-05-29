@@ -58,22 +58,22 @@ class ValueIterationAgent(ValueEstimationAgent):
         self.iterations = iterations
         self.values = util.Counter() # A Counter is a dict with default 0
         """"
-            Esta parte inicializa los valores para  
+            Esta parte inicializa los valores
         """
         for it in range(self.iterations):
-            valuestemporal=self.values.copy()
+            valuestemporal=util.Counter()
             for estado in mdp.getStates():
-                    
-                if mdp.isTerminal(estado):
-                    self.values[estado]=0
-                else:
-                    actionValues = []
-                    for action in self.mdp.getPossibleActions(estado):
-                        actionValue = self.getQValue(estado, action)
-                        actionValues.append(actionValue)
-                    if len(actionValues)>0:
-                        self.values[estado] = max(actionValues)
-                    
+                maximoValue=-99999999
+
+                actionValues = []
+                for action in self.mdp.getPossibleActions(estado):
+                    actionValue = self.getQValue(estado, action)
+                    maximovalue=max(maximoValue,actionValue)
+                if maximoValue!=-99999999 :
+                    valuestemporal[estado] = maximoValue
+           for estado in self.mdp.getStates():
+                self.values[estado] = valuestemporal[estado]
+
 
 
     def getValue(self, state):
@@ -92,11 +92,11 @@ class ValueIterationAgent(ValueEstimationAgent):
        
         qValue = 0
         #Se itera sobre todos los posibles estados a los que podemos ir y la probabilidad de llegar, dada una accion en el estado actual
-        for siguientEstado, prob in self.mdp.getTransitionStatesAndProbs(estado, accion): 
+        for prob in self.mdp.getTransitionStatesAndProbs(estado, accion): 
             #Se obtiene la recompensa correspondiente a la accion tomada en un estado especifico, terminando en un nuevo estado.
-            recompensa = self.mdp.getReward(estado, accion, siguientEstado)
-            #Actualiza el valor-Q
-            qValue += prob * (recompensa + self.discount * self.values[siguientEstado])
+            recompensa = self.mdp.getReward(estado, accion, prob[0])
+            #Actualiza el valor-Q, sumando el producto de la probabilidad de transición con la suma de la recompensa inmediata y el valor descontado del estado siguiente.
+            qValue += prob[1] * (recompensa + self.discount * self.values[prob[0]])
         
         return qValue
 
@@ -112,22 +112,16 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         "*** YOUR CODE HERE ***"
-        ## HECHO POR ELLA
-
-        #check for terminal
-        if self.mdp.isTerminal(state):
-            return 
-
-        actions = self.mdp.getPossibleActions(state)
-        #find all actions and the corresponding value and then return action
-        #corresponding to the maximum value
-        allActions = {}
-        for action in actions:
-            allActions[action] = self.computeQValueFromValues(state, action)
-
-        return max(allActions, key=allActions.get)
-
-        util.raiseNotDefined()
+        if self.mdp.isTerminal():
+            return None
+        
+        accionesPosibles = self.mdp.getPossibleActions(state)
+        
+        for accion in accionesPosibles:
+            accion = accion.computeQValueFromValues(state, accion)
+        
+        return max(accionesPosibles)
+   
 
     def getPolicy(self, state):
         return self.computeActionFromValues(state)
