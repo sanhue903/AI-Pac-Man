@@ -24,38 +24,38 @@ def question2():
     answerNoise = 0
     return answerDiscount, answerNoise
 
-def question3a():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+def question3a(): # Prefiere la salida cercana (+1), arriesgándose a caer en el precipicio (-10)
+    answerDiscount = 0.4
+    answerNoise = 0.1
+    answerLivingReward = -5.0
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
-def question3b():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+def question3b(): #Prefiere la salida cercana (+1), pero evitando el precipicio (-10)
+    answerDiscount = 0.2
+    answerNoise = 0.1
+    answerLivingReward = -1.0
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
-def question3c():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+def question3c(): # Prefiere la salida distante (+10), arriesgándose a caer en el precipicio (-10)
+    answerDiscount = 0.7
+    answerNoise = 0.1
+    answerLivingReward = -1.0
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
-def question3d():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+def question3d(): #Prefiere la salida distante (+10), evitando el precipicio (-10)
+    answerDiscount = 0.6
+    answerNoise = 0.2
+    answerLivingReward = -1.0
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
-def question3e():
-    answerDiscount = None
-    answerNoise = None
-    answerLivingReward = None
+def question3e(): #Evita ambas salidas y el precipicio (así que un episodio nunca debería terminar)
+    answerDiscount = 1.0
+    answerNoise = 0.4
+    answerLivingReward = 1.0
     return answerDiscount, answerNoise, answerLivingReward
     # If not possible, return 'NOT POSSIBLE'
 
