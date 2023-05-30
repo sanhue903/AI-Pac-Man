@@ -85,7 +85,7 @@ class QLearningAgent(ReinforcementAgent):
         acciones = [] #Lista de acciones a tomar
 
         #Se verifica si no hay acciones legales disponibles (estado terminal)
-        if not legalActions:
+        if not accionesLegales:
             return None
 
         #Calcula los valores Q para todas las acciones legales disponibles en el estado.
@@ -96,8 +96,8 @@ class QLearningAgent(ReinforcementAgent):
                 acciones.append(accion)
         #Elige aleatoriamente una accion de la lista de acciones
         return(random.choice(acciones))
-"""
-    def getAction(self, state):
+
+    def getAAction(self, state):
         """
           Compute the action to take in the current state.  With
           probability self.epsilon, we should take a random action and
@@ -108,6 +108,7 @@ class QLearningAgent(ReinforcementAgent):
           HINT: You might want to use util.flipCoin(prob)
           HINT: To pick randomly from a list, use random.choice(list)
         """
+
         # Pick Action
         accionesLegales = self.getLegalActions(state)
         "*** YOUR CODE HERE ***"
@@ -118,9 +119,8 @@ class QLearningAgent(ReinforcementAgent):
             return self.computeActionFromQValues(state)
         #for terminal state
         return None
-        
-
-    """   
+      
+       
 
     def update(self, state, action, nextState, reward): #ESTE
         """
