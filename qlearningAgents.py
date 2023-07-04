@@ -70,8 +70,9 @@ class QLearningAgent(ReinforcementAgent):
           
         if not valoresQ:
           return 0.0
-
-        return max(valoresQ)
+        
+        
+        return max(valoresQ.values())
 
 
     def computeActionFromQValues(self, state): #ESTE
@@ -82,7 +83,6 @@ class QLearningAgent(ReinforcementAgent):
         """
         "*** YOUR CODE HERE ***"
         accionesLegales = self.getLegalActions(state)
-        acciones = [] #Lista de acciones a tomar
 
         #Se verifica si no hay acciones legales disponibles (estado terminal)
         if not accionesLegales:
@@ -91,13 +91,14 @@ class QLearningAgent(ReinforcementAgent):
         #Calcula los valores Q para todas las acciones legales disponibles en el estado.
         valor = self.computeValueFromQValues(state)
 
+        mejoresAcciones = []
         for accion in accionesLegales:
-            if valor == self.getQValue(state, accion):
-                acciones.append(accion)
-        #Elige aleatoriamente una accion de la lista de acciones
-        return(random.choice(acciones))
+            if self.getQValue(state, accion) == valor:
+                mejoresAcciones.append(accion)
+        
+        return(random.choice(mejoresAcciones))
 
-    def getAAction(self, state):
+    def getAction(self, state):
         """
           Compute the action to take in the current state.  With
           probability self.epsilon, we should take a random action and
@@ -112,13 +113,15 @@ class QLearningAgent(ReinforcementAgent):
         # Pick Action
         accionesLegales = self.getLegalActions(state)
         "*** YOUR CODE HERE ***"
+        if not accionesLegales:
+          return None
         #using flipcoin to randomize
         if util.flipCoin(self.epsilon):
-            return random.choice(legalActions)
-        else:
-            return self.computeActionFromQValues(state)
+            return random.choice(accionesLegales)
+        
+        return self.computeActionFromQValues(state)
         #for terminal state
-        return None
+
       
        
 
