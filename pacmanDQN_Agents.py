@@ -23,7 +23,7 @@ from DQN import *
 params = {                   ## Parametros de la red neuronal
     # Model backups
     'load_file': None,            ##Si load_file es diferente de None, se carga el modelo que se especifica en load_file
-    'save_file': None,            ##Si save_file es diferente de None, se guarda el modelo que se especifica en save_file
+    'save_file': 'smallClassic',            ##Si save_file es diferente de None, se guarda el modelo que se especifica en save_file
     'save_interval' : 1000,      ## es el intervalo de iteraciones en el que se guardara el modelo
 
     # Training parameters
@@ -32,9 +32,9 @@ params = {                   ## Parametros de la red neuronal
     'mem_size': 100000,     # Replay memory size 
 
     'discount': 0.95,       # Discount rate (gamma value) ## Factor de descuento gamma
-    'lr': .0002,            # Learning reate              ## Tasa de aprendizaje
-    # 'rms_decay': 0.99,      # RMS Prop decay (switched to adam)
-    # 'rms_eps': 1e-6,        # RMS Prop epsilon (switched to adam)
+    'lr': 0.0002,            # Learning reate              ## Tasa de aprendizaje
+    'rms_decay': 0.99,      # RMS Prop decay Solo optimizador RMS, comentar esta linea si se usa adams.
+    'rms_eps': 1e-6,        # RMS Prop epsilon Solo optimizador RMS, comentar esta linea si se usa adams.
 
     # Epsilon value (epsilon-greedy)
     'eps': 1.0,             # Epsilon start value  
@@ -196,10 +196,10 @@ class PacmanDQN(game.Agent):
 
         # Print stats
         log_file = open('./logs/'+str(self.general_record_time)+'-l-'+str(self.params['width'])+'-m-'+str(self.params['height'])+'-x-'+str(self.params['num_training'])+'.log','a')
-        log_file.write("# %4d | steps: %5d | steps_t: %5d | t: %4f | r: %12f | e: %10f " %
+        log_file.write("# %4d | steps: %5d | steps_t: %5d | t: %4f | r: %12f | e: %10f " % 
                          (self.numeps,self.local_cnt, self.cnt, time.time()-self.s, self.ep_rew, self.params['eps']))
         log_file.write("| Q: %10f | won: %r \n" % ((max(self.Q_global, default=float('nan')), self.won)))
-        sys.stdout.write("# %4d | steps: %5d | steps_t: %5d | t: %4f | r: %12f | e: %10f " %
+        sys.stdout.write("# %4d | steps: %5d | steps_t: %5d | t: %4f | r: %12f | e: %10f " % 
                          (self.numeps,self.local_cnt, self.cnt, time.time()-self.s, self.ep_rew, self.params['eps']))
         sys.stdout.write("| Q: %10f | won: %r \n" % ((max(self.Q_global, default=float('nan')), self.won)))
         sys.stdout.flush()
