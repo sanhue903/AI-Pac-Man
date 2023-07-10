@@ -28,11 +28,11 @@ from DQN import *
 params = {
     # Model backups
     'load_file': None,
-    'save_file': None,
-    'save_interval' : 10000, 
+    'save_file': "modelo",
+    'save_interval' : 100, 
 
     # Training parameters
-    'train_start': 5000,    # Episodes before training starts
+    'train_start': 80,    # Episodes before training starts
     'batch_size': 32,       # Replay memory batch size
     'mem_size': 100000,     # Replay memory size
 
@@ -170,8 +170,8 @@ class PacmanDQN(game.Agent):
 
             # Save model
             if(params['save_file']):
-                if self.local_cnt > self.params['train_start'] and self.local_cnt % self.params['save_interval'] == 0:
-                    self.qnet.save_ckpt('saves/model-' + params['save_file'] + "_" + str(self.cnt) + '_' + str(self.numeps))
+                if self.local_cnt > self.params['train_start'] and self.numeps == self.params['save_interval'] :
+                    self.qnet.save_ckpt(params['save_file'] + "_" + str(self.cnt) + '_' + str(self.numeps))
                     print('Model saved')
 
             # Train
